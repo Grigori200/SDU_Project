@@ -1,0 +1,4 @@
+/data
+/notebooks/lightning_logs
+/notebooks/wandb
+/**/__pycache__
