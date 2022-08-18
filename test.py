@@ -5,10 +5,11 @@ import torch
 import numpy as np
 import torchvision
 from torchvision.transforms import ToTensor, Resize, Compose
+from dataset import test_val_transforms
 
 
 hyperparams = {
-    "resolution": 224,
+    "resolution": 336,
     "model_path": ""
 }
 
@@ -85,10 +86,8 @@ def test(dir_path: str) -> np.ndarray:
     """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     paths = get_paths(dir_path)
-    transform = Compose(
-        Resize((hyperparams["resolution"], hyperparams["resolution"])),
-        ToTensor()
-    )
+    transform = test_val_transforms((hyperparams["resolution"], hyperparams["resolution"]), normalize=True)
+    # TODO: Check dimensionality, if it's not (1x1xHxW) change it
 
     model = load_lightning_model(Model(), hyperparams["model_path"])
     model = model.to(device)
