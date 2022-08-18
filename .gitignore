@@ -2,3 +2,4 @@
 /notebooks/lightning_logs
 /notebooks/wandb
 /**/__pycache__
+/venv
