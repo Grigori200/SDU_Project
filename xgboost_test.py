@@ -9,7 +9,8 @@ from datamodules.dataset import PneumoniaData
 from adamp import AdamP
 
 
-from models import ResNet
+from models import XGBoostCNN
+from models.xgboost_cnn import train_xgboost
 from learning import train_test_model
 from common import load_hyperparams
 
@@ -27,14 +28,10 @@ if __name__ == '__main__':
     }
 
     model_kwargs = {
+        "width": 224,
+        "height": 224,
         "in_channels": 1,
-        "channels": 64,
-        "out_channels": 64,
-        "act_fn":  nn.GELU,
-        "n_blocks":  2,
-        "blocks_types": 'resnet',
-        "n_classes": 2,
-        "dropout_pb":  0.3,            
+        "num_classes": 2,
     }
     trainer_kwargs = {
         'max_epochs': 100,
@@ -51,16 +48,12 @@ if __name__ == '__main__':
 
         "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau,
 
-        # "scheduler_hparams": {
-        # },
-
         "precision": 16,
-        # "strategy": "ddp",
     }
 
     datamodule = PneumoniaDataModule(**datamodule_kwargs)
     datamodule.prepare_data()
-    model = ResNet(**model_kwargs)
+    model = XGBoostCNN(**model_kwargs)
 
 
     hparams = {
@@ -88,3 +81,6 @@ if __name__ == '__main__':
         callbacks=[callbacks.EarlyStopping(monitor='val/loss', min_delta=1e-4, patience=3)],
         **trainer_kwargs
     )
+
+    train_xgboost(model, )
+
