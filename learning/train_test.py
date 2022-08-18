@@ -2,7 +2,6 @@ from typing import *
 
 import torch
 import pytorch_lightning as pl
-from pytorch_lightning.loggers.logger import Logger
 from pytorch_lightning.callbacks import Callback
 from torch import nn
 
@@ -17,7 +16,7 @@ def train_test_model(
     optim_hparams: Dict,
     scheduler_hparams: Dict,
     gpus: int,
-    logger: Logger,
+    logger,
     callbacks: Callback,
     datamodule: pl.LightningDataModule,
     max_epochs: int = 100,

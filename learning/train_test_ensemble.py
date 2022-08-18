@@ -2,7 +2,6 @@ from typing import *
 
 import torch
 import pytorch_lightning as pl
-from pytorch_lightning.loggers.logger import Logger
 from pytorch_lightning.callbacks import Callback
 from torch import nn
 
@@ -37,7 +36,7 @@ def train_test_model_ensemble(
     module = VotingClassifier(
         estimator=model,
         n_estimators=n_models,
-        cuda=False
+        cuda=True
     )
     
     module.set_criterion(criterion)

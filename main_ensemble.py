@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     datamodule_kwargs = {
         "csv_path": "data_split_to_dirs.csv",
-        "batch_size": 32,
+        "batch_size": 16,
     }
 
     model_kwargs = {
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         "dropout_pb":  0.3,            
     }
     trainer_kwargs = {
-        'max_epochs': 100,
+        'max_epochs': 20,
 
         "optimizer": 'AdamW',
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
             'T_max': 100
         },
         
-        "n_models": 10,
+        "n_models": 5,
     }
 
     datamodule = PneumoniaDataModule(**datamodule_kwargs)
