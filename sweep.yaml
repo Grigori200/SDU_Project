@@ -21,14 +21,8 @@ parameters:
   label_smoothing:
     values: [0, 0.1, 0.2]
 
-  fixres_max_epochs:
-    values: [10]
-  
-  fixres_learning_rate:
-    values: [1e-5]
-  
-  EMA:
-    values: [true]
+  number_of_ensemble_models:
+    values: [5, 9, 15]
   
   project_name:
     value: SDUProject
