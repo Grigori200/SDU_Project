@@ -1,0 +1,44 @@
+program: experiments.base_experiment # Change approprietaly
+method: random
+project: SDUProject # Change approprietaly
+entity: kn-bmi
+metric:
+  goal: minimize
+  name: val_loss
+parameters:
+  learning_rate:
+    values: [1e-4, 3e-4, 1e-3]
+
+  nesterov:
+    values: [true, false]
+
+  weight_decay:
+    values: [5e-2, 1e-2, 1e-3]
+
+  batch_size:
+    values: [32, 128, 256]
+
+  label_smoothing:
+    values: [0, 0.1, 0.2]
+
+  fixres_max_epochs:
+    values: [10]
+  
+  fixres_learning_rate:
+    values: [1e-5]
+  
+  EMA:
+    values: [true]
+  
+  project_name:
+    value: SDUProject
+  
+  entity_name:
+    value: kn-bmi
+
+command:
+  - ${env}
+  - python3
+  - -m
+  - ${program}
+  - ${args}
