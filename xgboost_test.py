@@ -28,8 +28,8 @@ if __name__ == '__main__':
     }
 
     model_kwargs = {
-        "width": 224,
-        "height": 224,
+        "width": 80,
+        "height": 80,
         "in_channels": 1,
         "num_classes": 2,
     }
