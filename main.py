@@ -26,6 +26,7 @@ if __name__ == '__main__':
     }
 
     model_kwargs = {
+        "n_models": 11,
         "in_channels": 1,
         "channels": 64,
         "out_channels": 64,
