@@ -18,7 +18,7 @@ def train_test_model(
     datamodule,
     max_epochs: int = 100,
     precision: int = 16,
-    strategy: str = "ddp",
+    # strategy: str = "ddp",
     optim_hparams = {}
 ):
     module = Classifier(
@@ -34,7 +34,7 @@ def train_test_model(
         callbacks=callbacks,
         logger=logger,
         precision=precision,
-        strategy=strategy,
+        # strategy=strategy,
     )
     trainer.fit(
         model=module,
