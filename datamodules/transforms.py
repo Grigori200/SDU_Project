@@ -45,14 +45,14 @@ def train_transforms(target_size: Tuple[int, int], normalize: bool) -> Compose:
                 'y': (-0.1, 0.1)
             },
             rotate=(-20, 20),
-            shear=(-10, 10),
+            #shear=(-10, 10),
             p=0.5
         ),
-        A.CLAHE(
-            clip_limit=4.0,
-            tile_grid_size=(8, 8),
-            p=0.5
-        )
+        # A.CLAHE(
+        #     clip_limit=4.0,
+        #     tile_grid_size=(8, 8),
+        #     p=0.5
+        # )
       ]
   )
   albument = Albument(augs)

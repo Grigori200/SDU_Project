@@ -4,4 +4,5 @@
 /**/__pycache__
 /venv/
 /split_data/
-/save/*
+save/*
+wandb/

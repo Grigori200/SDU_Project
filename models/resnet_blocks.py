@@ -37,7 +37,7 @@ class ResNetBlock(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x2 = self.conv(x)
-        if self.seb:
+        if self.se:
             x2 = self.seb(x2)
         out = self.act(x2 + x)
         return out
@@ -71,7 +71,7 @@ class ResNetInceptionBlock(nn.Module):
     def forward(self, x):
         x2 = self.inception_block(x)
         x2 = self.conv2(x2)
-        if self.seb:
+        if self.se:
             x2 = self.seb(x2)
         out = x + x2
         return self.act_fn(out)

@@ -24,7 +24,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
                  split_name: str = 'splits',
                  batch_size: int = 16,
                  num_workers: int = 12,
-                 shuffle_train: bool = True
+                 shuffle_train: bool = True,
+                 **kwargs
                  ):
         super(PneumoniaDataModule, self).__init__()
 

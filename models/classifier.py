@@ -100,8 +100,8 @@ class Classifier(pl.LightningModule):
         :return: torch optimizer
         """
         optimizer = self.optimizer(self.model.parameters(), lr=self.optim_hparams["lr"], 
-            weight_decay=self.optim_hparams["weight_decay"], nesterov=self.optim_hparams["nesterov"])#**self.optim_hparams)
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100) #**self.scheduler_hparams)
+            weight_decay=self.optim_hparams["weight_decay"], nesterov=self.optim_hparams["nesterov"])
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100) 
         return [optimizer], [scheduler]
 
     def lr_scheduler_step(

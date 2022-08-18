@@ -28,6 +28,8 @@ def parse_sweep_args() -> argparse.Namespace:
     parser.add_argument("--number_of_ensemble_models", type=int)
     parser.add_argument("--project_name", type=str)
     parser.add_argument("--entity_name", type=str)
+    parser.add_argument('--normalize', type=bool)
+    parser.add_argument('--size', type=int)
     return parser.parse_args()
 
 
@@ -48,6 +50,8 @@ def load_hyperparams():
     hyperparams["number_of_ensemble_models"] = parser.number_of_ensemble_models
     hyperparams["project_name"] = parser.project_name
     hyperparams["entity_name"] = parser.entity_name
+    hyperparams["normalize"] = parser.normalize
+    hyperparams["size"] = parser.size
     
     return hyperparams
 

@@ -8,10 +8,10 @@ metric:
   name: val_loss
 parameters:
   learning_rate:
-    values: [1e-4, 3e-4, 1e-3]
+    values: [3e-4, 1e-3]
 
   nesterov:
-    values: [true, false]
+    values: [true]
 
   weight_decay:
     values: [5e-2, 1e-2, 1e-3]
@@ -20,7 +20,7 @@ parameters:
     values: [16]
 
   label_smoothing:
-    values: [0, 0.1, 0.2]
+    values: [ 0.2]
 
   channels:
     values: [32, 64, 128]
@@ -29,19 +29,25 @@ parameters:
     values: [32, 64, 128]
   
   n_blocks:
-    values: [1, 2, 3, 5, 8, 10]
+    values: [2, 3, 5, 8]
   
   block_types:
-    values: ["resnet"]
+    values: ["resnet_inception"]
   
   dropout_pb:
     values: [0.3, 0.5]
   
-  number_of_ensemble_models:
-    values: [5, 9, 15]
+  # number_of_ensemble_models:
+  #   values: [5, 9, 15]
   
   project_name:
     value: SDUProject
+
+  size:
+    values: [128, 224, 364]
+
+  normalize:
+    values: [True, False]
   
   entity_name:
     value: kn-bmi
