@@ -14,9 +14,10 @@ class Classifier(pl.LightningModule):
         model: nn.Module,
         criterion: nn.Module,
         optimizer: torch.optim.Optimizer = torch.optim.Adam,
-        lr_scheduler: torch.optim.lr_scheduler = None,
+        lr_scheduler: torch.optim.lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau,
         optim_hparams: Dict[str, Any] = {'lr': 1e-4},
         scheduler_hparams: Dict[str, Any] = {'epochs': 5},
+        **kwargs
 
     ) -> None:
         super(Classifier, self).__init__()
@@ -43,7 +44,7 @@ class Classifier(pl.LightningModule):
         return self.model(x)
 
     def step(self, batch):
-        x, y = batch['x'], batch['y']
+        x, y = batch['x'], batch['y'].long()
         logits = self.forward(x)
         loss = self.criterion(logits, y)
         preds = torch.argmax(logits, dim=1)
@@ -95,19 +96,19 @@ class Classifier(pl.LightningModule):
     def test_epoch_end(self, outputs: List[Any]):
         self.test_acc.reset()
 
-    def configure_optimizers(self) -> Tuple[
-            List[torch.optim.Optimizer], 
-            List[torch.optim.lr_scheduler._LRScheduler]
-        ]:
+    def configure_optimizers(self):
         """
         Configure optimizer and returns it
         :return: torch optimizer
         """
-        optimizer = self.optimizer(self.model.parameters(), **self.optim_hparams)
-        scheduler = self.optimizer(optimizer, **self.scheduler_hparams)
+        optimizer = self.optimizer(self.model.parameters(), lr=1e-4, weight_decay=1e-5)#**self.optim_hparams)
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100) #**self.scheduler_hparams)
         return [optimizer], [scheduler]
 
     def lr_scheduler_step(
         self, scheduler: torch.optim.lr_scheduler._LRScheduler, optimizer_idx, metric
     ) -> None:
-        scheduler.step(epoch=self.current_epoch, metric=metric)
+        if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+            scheduler.step(epoch=self.current_epoch, metrics=metric)
+        else:
+            scheduler.step(epoch=self.current_epoch)

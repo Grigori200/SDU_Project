@@ -1,0 +1,25 @@
+2022-08-18 18:33:42,330 INFO    MainThread:882442 [wandb_setup.py:_flush():75] Loading settings from /home/konradkaranowski/.config/wandb/settings
+2022-08-18 18:33:42,330 INFO    MainThread:882442 [wandb_setup.py:_flush():75] Loading settings from /home/konradkaranowski/SDU_Project/wandb/settings
+2022-08-18 18:33:42,330 INFO    MainThread:882442 [wandb_setup.py:_flush():75] Loading settings from environment variables: {'_require_service': 'True'}
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_setup.py:_flush():75] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program': 'main.py'}
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_init.py:_log_setup():386] Logging user logs to save/wandb/run-20220818_183342-1w86lyq2/logs/debug.log
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_init.py:_log_setup():387] Logging internal logs to save/wandb/run-20220818_183342-1w86lyq2/logs/debug-internal.log
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_init.py:init():420] calling init triggers
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_init.py:init():425] wandb.init called with sweep_config: {}
+config: {'dataset': 'PneumoniaDataModule', 'csv_path': '/home/konradkaranowski/SDU_Project/data_split_to_dirs.csv', 'batch_size': 64, 'in_channels': 1, 'channels': 128, 'out_channels': 64, 'act_fn': <class 'torch.nn.modules.activation.GELU'>, 'n_blocks': 10, 'blocks_types': 'resnet', 'n_classes': 2, 'dropout_pb': 0.3, 'train_size': 1496, 'val_size': 264, 'test_size': 440}
+2022-08-18 18:33:42,331 INFO    MainThread:882442 [wandb_init.py:init():471] starting backend
+2022-08-18 18:33:42,334 INFO    MainThread:882442 [backend.py:_multiprocessing_setup():99] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2022-08-18 18:33:42,337 INFO    MainThread:882442 [wandb_init.py:init():480] backend started and connected
+2022-08-18 18:33:42,341 INFO    MainThread:882442 [wandb_init.py:init():550] updated telemetry
+2022-08-18 18:33:42,360 INFO    MainThread:882442 [wandb_init.py:init():581] communicating current version
+2022-08-18 18:33:42,493 INFO    MainThread:882442 [wandb_init.py:init():586] got version response upgrade_message: "wandb version 0.13.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-18 18:33:42,494 INFO    MainThread:882442 [wandb_init.py:init():596] communicating run to backend with 30 second timeout
+2022-08-18 18:33:43,162 INFO    MainThread:882442 [wandb_init.py:init():624] starting run threads in backend
+2022-08-18 18:33:45,492 INFO    MainThread:882442 [wandb_run.py:_console_start():1827] atexit reg
+2022-08-18 18:33:45,493 INFO    MainThread:882442 [wandb_run.py:_redirect():1701] redirect: SettingsConsole.WRAP
+2022-08-18 18:33:45,494 INFO    MainThread:882442 [wandb_run.py:_redirect():1738] Wrapping output streams.
+2022-08-18 18:33:45,495 INFO    MainThread:882442 [wandb_run.py:_redirect():1762] Redirects installed.
+2022-08-18 18:33:45,495 INFO    MainThread:882442 [wandb_init.py:init():651] run started, returning control to user process
+2022-08-18 18:33:49,376 INFO    MainThread:882442 [wandb_run.py:_config_callback():966] config_cb None None {'model': None, 'criterion': None, 'optimizer': 'AdamW', 'lr_scheduler': 'ReduceLROnPlateau', 'optim_hparams/lr': 0.0001, 'optim_hparams/weight_decay': 1e-05}
+2022-08-18 18:33:54,099 WARNING MsgRouterThr:882442 [router.py:message_loop():76] message_loop has been closed

@@ -1,0 +1,149 @@
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'model' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['model'])`.
+  rank_zero_warn(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'criterion' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['criterion'])`.
+  rank_zero_warn(
+Using 16bit native Automatic Mixed Precision (AMP)
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:88: LightningDeprecationWarning: DataModule property `train_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:107: LightningDeprecationWarning: DataModule property `val_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+Sanity Checking: 0it [00:00, ?it/s]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name         | Type             | Params
+--------------------------------------------------
+0 | model        | ResNet           | 91.9 K
+1 | criterion    | CrossEntropyLoss | 0
+2 | train_acc    | Accuracy         | 0
+3 | val_acc      | Accuracy         | 0
+4 | test_acc     | Accuracy         | 0
+5 | val_acc_best | MaxMetric        | 0
+--------------------------------------------------
+91.9 K    Trainable params
+0         Non-trainable params
+91.9 K    Total params
+
+Epoch 0:   0%|                                                                                                                                | 0/56 [00:00<?, ?it/s]
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py:1927: PossibleUserWarning: The number of training batches (47) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+
+
+
+
+
+
+Epoch 0:  82%|██████████████████████████████████████████████████████████████████████████████                 | 46/56 [00:13<00:03,  3.31it/s, loss=0.616, v_num=5z81]
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1351, in _run_train
+    self.fit_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/fit_loop.py", line 268, in advance
+    self._outputs = self.epoch_loop.run(self._data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 216, in advance
+    self.update_lr_schedulers("epoch", update_plateau_schedulers=False)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 430, in update_lr_schedulers
+    self._update_learning_rates(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 491, in _update_learning_rates
+    self.trainer._call_lightning_module_hook(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 111, in lr_scheduler_step
+    scheduler.step(epoch=self.current_epoch, metric=metric)
+TypeError: step() got an unexpected keyword argument 'metric'
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1351, in _run_train
+    self.fit_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/fit_loop.py", line 268, in advance
+    self._outputs = self.epoch_loop.run(self._data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 216, in advance
+    self.update_lr_schedulers("epoch", update_plateau_schedulers=False)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 430, in update_lr_schedulers
+    self._update_learning_rates(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 491, in _update_learning_rates
+    self.trainer._call_lightning_module_hook(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 111, in lr_scheduler_step
+    scheduler.step(epoch=self.current_epoch, metric=metric)
+TypeError: step() got an unexpected keyword argument 'metric'
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1351, in _run_train
+    self.fit_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/fit_loop.py", line 268, in advance
+    self._outputs = self.epoch_loop.run(self._data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 216, in advance
+    self.update_lr_schedulers("epoch", update_plateau_schedulers=False)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 430, in update_lr_schedulers
+    self._update_learning_rates(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 491, in _update_learning_rates
+    self.trainer._call_lightning_module_hook(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 111, in lr_scheduler_step
+    scheduler.step(epoch=self.current_epoch, metric=metric)

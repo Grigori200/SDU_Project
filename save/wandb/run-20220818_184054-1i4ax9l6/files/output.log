@@ -1,0 +1,139 @@
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'model' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['model'])`.
+  rank_zero_warn(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'criterion' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['criterion'])`.
+  rank_zero_warn(
+Using 16bit native Automatic Mixed Precision (AMP)
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:88: LightningDeprecationWarning: DataModule property `train_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:107: LightningDeprecationWarning: DataModule property `val_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+Epoch 0:   0%|                                                                                                                                | 0/56 [00:00<?, ?it/s]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name         | Type             | Params
+--------------------------------------------------
+0 | model        | ResNet           | 91.9 K
+1 | criterion    | CrossEntropyLoss | 0
+2 | train_acc    | Accuracy         | 0
+3 | val_acc      | Accuracy         | 0
+4 | test_acc     | Accuracy         | 0
+5 | val_acc_best | MaxMetric        | 0
+--------------------------------------------------
+91.9 K    Trainable params
+0         Non-trainable params
+91.9 K    Total params
+0.184     Total estimated model params size (MB)
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py:1927: PossibleUserWarning: The number of training batches (47) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+
+
+
+
+
+
+Epoch 0:  82%|██████████████████████████████████████████████████████████████████████████████                 | 46/56 [00:13<00:02,  3.37it/s, loss=0.619, v_num=x9l6]
+/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/optim/lr_scheduler.py:154: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+Epoch 0:  84%|███████████████████████████████████████████████████████████████████████████████▋               | 47/56 [00:14<00:02,  3.18it/s, loss=0.614, v_num=x9l6]
+
+
+
+
+
+
+
+Epoch 1:  86%|████████████████████████████████████▊      | 48/56 [00:15<00:02,  3.16it/s, loss=0.577, v_num=x9l6, val/acc=0.511, val/acc_best=0.516, train/acc=0.608]
+
+
+
+
+
+
+
+Epoch 2:  86%|████████████████████████████████████▊      | 48/56 [00:15<00:02,  3.18it/s, loss=0.529, v_num=x9l6, val/acc=0.511, val/acc_best=0.516, train/acc=0.694]
+
+
+
+
+
+
+
+Epoch 3:  88%|█████████████████████████████████████▋     | 49/56 [00:15<00:02,  3.13it/s, loss=0.526, v_num=x9l6, val/acc=0.807, val/acc_best=0.807, train/acc=0.750]
+
+
+
+
+
+
+
+Epoch 4:  84%|████████████████████████████████████       | 47/56 [00:14<00:02,  3.30it/s, loss=0.459, v_num=x9l6, val/acc=0.822, val/acc_best=0.822, train/acc=0.759]
+
+
+
+
+
+
+
+Epoch 5:  84%|████████████████████████████████████       | 47/56 [00:13<00:02,  3.38it/s, loss=0.457, v_num=x9l6, val/acc=0.727, val/acc_best=0.822, train/acc=0.809]
+
+
+
+
+
+
+
+Epoch 6:  84%|████████████████████████████████████       | 47/56 [00:14<00:02,  3.34it/s, loss=0.444, v_num=x9l6, val/acc=0.811, val/acc_best=0.822, train/acc=0.789]
+
+
+
+
+
+
+
+Epoch 7:  84%|████████████████████████████████████       | 47/56 [00:13<00:02,  3.38it/s, loss=0.422, v_num=x9l6, val/acc=0.784, val/acc_best=0.822, train/acc=0.820]
+
+
+
+
+
+
+
+Epoch 8:  84%|████████████████████████████████████       | 47/56 [00:13<00:02,  3.37it/s, loss=0.395, v_num=x9l6, val/acc=0.845, val/acc_best=0.845, train/acc=0.820]
+
+
+
+
+
+
+Epoch 9:  84%|████████████████████████████████████       | 47/56 [00:13<00:02,  3.36it/s, loss=0.393, v_num=x9l6, val/acc=0.708, val/acc_best=0.845, train/acc=0.846]
+
+
+
+
+
+
+
+Epoch 10:  93%|███████████████████████████████████████   | 52/56 [00:16<00:01,  3.14it/s, loss=0.381, v_num=x9l6, val/acc=0.655, val/acc_best=0.845, train/acc=0.814]
+Validation DataLoader 0:  56%|██████████████████████████████████████████████████████████▎                                              | 5/9 [00:00<00:00, 11.66it/s]
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:126: LightningDeprecationWarning: DataModule property `test_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py:1444: UserWarning: `.test(ckpt_path=None)` was called without a model. The best model of the previous `fit` call will be used. You can pass `test(ckpt_path='best')` to use and best model checkpoint and avoid this warning or `ckpt_path=trainer.checkpoint_callback.last_model_path` to use the last model.
+  rank_zero_warn(
+Restoring states from the checkpoint path at save/PneumoniaSDU/1i4ax9l6/checkpoints/epoch=10-step=517.ckpt
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Loaded model weights from checkpoint at save/PneumoniaSDU/1i4ax9l6/checkpoints/epoch=10-step=517.ckpt
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:330: PossibleUserWarning: Using `DistributedSampler` with the dataloaders. During `trainer.test()`, it is recommended to use `Trainer(devices=1)` to ensure each sample/batch gets evaluated exactly once. Otherwise, multi-device settings use `DistributedSampler` that replicates some samples to make sure all devices have same batch size in case of uneven inputs.
+
+Testing DataLoader 0: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 14/14 [00:01<00:00, 11.72it/s]
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃[1m        Test metric        [22m┃[1m       DataLoader 0        [22m┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│[36m         test/acc          [39m│[35m            0.5            [39m│
+│[36m         test/loss         [39m│[35m    1.0837773084640503     [39m│
+└───────────────────────────┴───────────────────────────┘

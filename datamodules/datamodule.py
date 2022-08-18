@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision.transforms import Compose, ToTensor
 
 from datamodules.dataset import PneumoniaData
+from datamodules.transforms import train_transforms, test_val_transforms
 
 
 class PneumoniaDataModule(pl.LightningDataModule):
@@ -15,10 +16,10 @@ class PneumoniaDataModule(pl.LightningDataModule):
                  train_split_name: str = 'train',
                  val_split_name: str = 'val',
                  test_split_name: str = 'test',
-                 train_transforms: Compose = ToTensor,
-                 val_transforms: Compose = ToTensor,
-                 test_transforms: Compose = ToTensor,
-                 image_path_name: str = 'path',
+                 train_transforms: Compose = train_transforms((224, 224), True),
+                 val_transforms: Compose = test_val_transforms((224, 224), True),
+                 test_transforms: Compose = test_val_transforms((224, 224), True),
+                 image_path_name: str = 'filename',
                  target_name: str = 'labels',
                  split_name: str = 'splits',
                  batch_size: int = 16,

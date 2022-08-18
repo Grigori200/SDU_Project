@@ -39,7 +39,7 @@ class ResNetBlock(nn.Module):
         x2 = self.conv(x)
         if self.seb:
             x2 = self.seb(x2)
-        out = self.act_fn(x2 + x)
+        out = self.act(x2 + x)
         return out
 
 

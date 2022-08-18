@@ -1,0 +1,200 @@
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'model' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['model'])`.
+  rank_zero_warn(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'criterion' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['criterion'])`.
+  rank_zero_warn(
+Using 16bit native Automatic Mixed Precision (AMP)
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:88: LightningDeprecationWarning: DataModule property `train_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:107: LightningDeprecationWarning: DataModule property `val_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name         | Type             | Params
+--------------------------------------------------
+0 | model        | ResNet           | 2.7 M
+1 | criterion    | CrossEntropyLoss | 0
+2 | train_acc    | Accuracy         | 0
+3 | val_acc      | Accuracy         | 0
+4 | test_acc     | Accuracy         | 0
+5 | val_acc_best | MaxMetric        | 0
+--------------------------------------------------
+2.7 M     Trainable params
+0         Non-trainable params
+2.7 M     Total params
+5.445     Total estimated model params size (MB)
+Sanity Checking: 0it [00:00, ?it/s]
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1343, in _run_train
+    self._run_sanity_check()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1411, in _run_sanity_check
+    val_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/dataloader/evaluation_loop.py", line 154, in advance
+    dl_outputs = self.epoch_loop.run(self._data_fetcher, dl_max_batches, kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/evaluation_epoch_loop.py", line 111, in advance
+    batch = next(data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 184, in __next__
+    return self.fetching_function()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 259, in fetching_function
+    self._fetch_next_batch(self.dataloader_iter)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 273, in _fetch_next_batch
+    batch = next(iterator)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1203, in _next_data
+    return self._process_data(data)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1229, in _process_data
+    data.reraise()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/_utils.py", line 434, in reraise
+    raise exception
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 32, in __getitem__
+    image = self._process_image(path)
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 27, in _process_image
+    return self.transforms(img)
+TypeError: ToTensor() takes no arguments
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1343, in _run_train
+    self._run_sanity_check()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1411, in _run_sanity_check
+    val_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/dataloader/evaluation_loop.py", line 154, in advance
+    dl_outputs = self.epoch_loop.run(self._data_fetcher, dl_max_batches, kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/evaluation_epoch_loop.py", line 111, in advance
+    batch = next(data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 184, in __next__
+    return self.fetching_function()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 259, in fetching_function
+    self._fetch_next_batch(self.dataloader_iter)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 273, in _fetch_next_batch
+    batch = next(iterator)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1203, in _next_data
+    return self._process_data(data)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1229, in _process_data
+    data.reraise()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/_utils.py", line 434, in reraise
+    raise exception
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 32, in __getitem__
+    image = self._process_image(path)
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 27, in _process_image
+    return self.transforms(img)
+TypeError: ToTensor() takes no arguments
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1234, in _run
+    results = self._run_stage()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1321, in _run_stage
+    return self._run_train()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1343, in _run_train
+    self._run_sanity_check()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1411, in _run_sanity_check
+    val_loop.run()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/dataloader/evaluation_loop.py", line 154, in advance
+    dl_outputs = self.epoch_loop.run(self._data_fetcher, dl_max_batches, kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/base.py", line 204, in run
+    self.advance(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/loops/epoch/evaluation_epoch_loop.py", line 111, in advance
+    batch = next(data_fetcher)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 184, in __next__
+    return self.fetching_function()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 259, in fetching_function
+    self._fetch_next_batch(self.dataloader_iter)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/fetching.py", line 273, in _fetch_next_batch
+    batch = next(iterator)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1203, in _next_data
+    return self._process_data(data)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1229, in _process_data
+    data.reraise()
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/_utils.py", line 434, in reraise
+    raise exception
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 32, in __getitem__
+    image = self._process_image(path)
+  File "/home/konradkaranowski/SDU_Project/datamodules/dataset.py", line 27, in _process_image
+    return self.transforms(img)

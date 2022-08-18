@@ -7,7 +7,7 @@ from torch import nn
 from models import Classifier
 
 
-def train_test(
+def train_test_model(
     model: nn.Module,
     criterion,
     optimizer, 
