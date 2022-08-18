@@ -23,7 +23,7 @@ class ToGreyScale:
 
 class Normalize:
   def __call__(self, x: torch.Tensor) -> np.ndarray:
-    return x.astype('float32') / 255
+    return x.float() / 255.0
 
 
 class Albument:
