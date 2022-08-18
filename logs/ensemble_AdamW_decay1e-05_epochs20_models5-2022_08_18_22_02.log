@@ -1,0 +1,10 @@
+2022-08-18 22:07:40,039 - io.py[line:35] - INFO: Saving the model to `./VotingClassifier_ResNet_5_ckpt.pth`
+2022-08-18 22:07:40,062 - voting.py[line:240] - INFO: Epoch: 000 | Validation Acc: 79.167 % | Historical Best: 79.167 %
+2022-08-18 22:11:49,814 - voting.py[line:240] - INFO: Epoch: 001 | Validation Acc: 68.939 % | Historical Best: 79.167 %
+2022-08-18 22:16:08,526 - io.py[line:35] - INFO: Saving the model to `./VotingClassifier_ResNet_5_ckpt.pth`
+2022-08-18 22:16:08,541 - voting.py[line:240] - INFO: Epoch: 002 | Validation Acc: 81.818 % | Historical Best: 81.818 %
+2022-08-18 22:20:23,206 - voting.py[line:240] - INFO: Epoch: 003 | Validation Acc: 80.303 % | Historical Best: 81.818 %
+2022-08-18 22:24:35,821 - voting.py[line:240] - INFO: Epoch: 004 | Validation Acc: 81.061 % | Historical Best: 81.818 %
+2022-08-18 22:28:46,487 - io.py[line:35] - INFO: Saving the model to `./VotingClassifier_ResNet_5_ckpt.pth`
+2022-08-18 22:28:46,502 - voting.py[line:240] - INFO: Epoch: 005 | Validation Acc: 82.576 % | Historical Best: 82.576 %
+2022-08-18 22:32:56,636 - voting.py[line:240] - INFO: Epoch: 006 | Validation Acc: 81.061 % | Historical Best: 82.576 %

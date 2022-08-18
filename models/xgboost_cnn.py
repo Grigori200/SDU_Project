@@ -3,6 +3,7 @@ from typing import *
 from torch import nn
 from xgboost import XGBClassifier
 import numpy as np
+import tqdm
 
 
 class XGBoostCNN(nn.Module):
@@ -60,24 +61,33 @@ class XGBConvBlock(nn.Module):
 
 
 def train_xgboost(model, train_dataloader, test_dataloader, DEVICE):
+    model = model.to(DEVICE)
     model.eval()
-    model.model = nn.Sequential(*[model.model[i] for i in range(7)])
+    # model.model = nn.Sequential(*[model.model[i] for i in range(7)])
+    model.dp = nn.Flatten()
+    model.fc = nn.AdaptiveAvgPool1d(1024)
     xgbmodel = XGBClassifier(objective='multi:softprob',
                                 num_class=2)
-    for x, y in train_dataloader:
+    for x, y in tqdm.tqdm(train_dataloader):
+        print('poczatek petli')
         x = x.to(DEVICE)
-        y = np.array(y)
-        x_preprocessed = np.array(model(x))
+        y = y.numpy()
+        print('srodek petli')
+        x_preprocessed = model(x).detach().cpu().numpy()
+        print('przed fitem petli')
         xgbmodel.fit(x_preprocessed, y)
+        print('koniec petli')
         
     y_trues = []
     y_preds = []
-    for x, y_true in test_dataloader:
-        x = np.array(x)
-        y_pred = xgbmodel.predict(x)    
+    for x, y_true in tqdm.tqdm(test_dataloader):
+        x = x.to(DEVICE)
+        x_preprocessed = model(x).detach().cpu().numpy()
+        y_true = y_true.numpy()
+        y_pred = xgbmodel.predict(x_preprocessed)
         y_preds.extend(y_pred)
-        y_trues.extend(np.array(y_true))
+        y_trues.extend(y_true)
     
     y_preds = np.array(y_preds)
     y_trues = np.array(y_trues)
-    print(f'Test accuracy: {(y_preds == y_true).sum() / len(y_preds)}')
+    print(f'Test accuracy: {(y_preds == y_trues).sum() / len(y_preds)}')

@@ -9,7 +9,7 @@ from datamodules.dataset import PneumoniaData
 from adamp import AdamP
 
 
-from models import XGBoostCNN
+from models import XGBoostCNN, Classifier
 from models.xgboost_cnn import train_xgboost
 from learning import train_test_model
 from common import load_hyperparams
@@ -53,7 +53,6 @@ if __name__ == '__main__':
 
     datamodule = PneumoniaDataModule(**datamodule_kwargs)
     datamodule.prepare_data()
-    model = XGBoostCNN(**model_kwargs)
 
 
     hparams = {
@@ -66,28 +65,15 @@ if __name__ == '__main__':
         "test_size": len(datamodule.test_dataloader().dataset) 
     }
 
-    logger = WandbLogger(
-        save_dir=str(LOGS_DIR),
-        config=hparams,
-        project=WANDB_PROJECT_NAME,
-        log_model=False,
-    )
-
-    train_test_model(
-        model=model,
-        criterion=nn.CrossEntropyLoss(),
-        datamodule=datamodule,
-        logger=logger,
-        callbacks=[callbacks.EarlyStopping(monitor='val/loss', min_delta=1e-4, patience=3)],
-        **trainer_kwargs
-    )
-
-    torch.save(model, 'save/xgb/cnn.pt')
+    model = Classifier.load_from_checkpoint('save/xgb/epoch22-step2162.ckpt').model
+    # model = torch.load('save/xgb/cnn.pt')
 
     train_dataloader = datamodule.train_dataloader()
     test_dataloader = datamodule.test_dataloader()
 
     DEVICE = torch.device("cuda:0") if torch.cuda.is_available else torch.device('cpu')
+    print(DEVICE)
+    DEVICE = torch.device('cpu')
     
     train_xgboost(model, train_dataloader, test_dataloader, DEVICE)
 
