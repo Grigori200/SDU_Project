@@ -1,0 +1,104 @@
+
+<class 'type'>
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'model' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['model'])`.
+  rank_zero_warn(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/utilities/parsing.py:261: UserWarning: Attribute 'criterion' is an instance of `nn.Module` and is already saved during checkpointing. It is recommended to ignore them using `self.save_hyperparameters(ignore=['criterion'])`.
+  rank_zero_warn(
+Using 16bit native Automatic Mixed Precision (AMP)
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:88: LightningDeprecationWarning: DataModule property `train_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:107: LightningDeprecationWarning: DataModule property `val_transforms` was deprecated in v1.5 and will be removed in v1.7.
+  rank_zero_deprecation(
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1215, in _run
+    self.strategy.setup(self)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/ddp.py", line 155, in setup
+    super().setup(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 139, in setup
+    self.setup_optimizers(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 128, in setup_optimizers
+    self.optimizers, self.lr_scheduler_configs, self.optimizer_frequencies = _init_optimizers_and_lr_schedulers(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/optimizer.py", line 180, in _init_optimizers_and_lr_schedulers
+    optim_conf = model.trainer._call_lightning_module_hook("configure_optimizers", pl_module=model)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 106, in configure_optimizers
+    scheduler = self.lr_scheduler(optimizer, **self.scheduler_hparams)
+TypeError: 'tuple' object is not callable
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1215, in _run
+    self.strategy.setup(self)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/ddp.py", line 155, in setup
+    super().setup(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 139, in setup
+    self.setup_optimizers(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 128, in setup_optimizers
+    self.optimizers, self.lr_scheduler_configs, self.optimizer_frequencies = _init_optimizers_and_lr_schedulers(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/optimizer.py", line 180, in _init_optimizers_and_lr_schedulers
+    optim_conf = model.trainer._call_lightning_module_hook("configure_optimizers", pl_module=model)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 106, in configure_optimizers
+    scheduler = self.lr_scheduler(optimizer, **self.scheduler_hparams)
+TypeError: 'tuple' object is not callable
+Traceback (most recent call last):
+  File "main.py", line 81, in <module>
+    train_test_model(
+  File "/home/konradkaranowski/SDU_Project/learning/train_test.py", line 41, in train_test_model
+    trainer.fit(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 768, in fit
+    self._call_and_handle_interrupt(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 719, in _call_and_handle_interrupt
+    return self.strategy.launcher.launch(trainer_fn, *args, trainer=self, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 93, in launch
+    return function(*args, **kwargs)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 809, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1215, in _run
+    self.strategy.setup(self)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/ddp.py", line 155, in setup
+    super().setup(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 139, in setup
+    self.setup_optimizers(trainer)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/strategies/strategy.py", line 128, in setup_optimizers
+    self.optimizers, self.lr_scheduler_configs, self.optimizer_frequencies = _init_optimizers_and_lr_schedulers(
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/core/optimizer.py", line 180, in _init_optimizers_and_lr_schedulers
+    optim_conf = model.trainer._call_lightning_module_hook("configure_optimizers", pl_module=model)
+  File "/home/konradkaranowski/.local/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py", line 1593, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/home/konradkaranowski/SDU_Project/models/classifier.py", line 106, in configure_optimizers
+    scheduler = self.lr_scheduler(optimizer, **self.scheduler_hparams)

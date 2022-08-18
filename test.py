@@ -5,7 +5,8 @@ import torch
 import numpy as np
 import torchvision
 from torchvision.transforms import ToTensor, Resize, Compose
-from dataset import test_val_transforms
+from datamodules.transforms import test_val_transforms
+import tqdm
 
 
 hyperparams = {
@@ -74,11 +75,12 @@ def get_paths(dir_path: str) -> List[str]:
     return filenames 
 
 
-def test(dir_path: str) -> np.ndarray:
+def test(model, dir_path: str) -> np.ndarray:
     """
     Test a model on images from provided directory path.
 
     Args:
+        :model: Model for inference
         :dir_path: (str): Path to the directory with all the images
     
     Returns:
@@ -87,18 +89,21 @@ def test(dir_path: str) -> np.ndarray:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     paths = get_paths(dir_path)
     transform = test_val_transforms((hyperparams["resolution"], hyperparams["resolution"]), normalize=True)
-    # TODO: Check dimensionality, if it's not (1x1xHxW) change it
-
-    model = load_lightning_model(Model(), hyperparams["model_path"])
     model = model.to(device)
     model.eval()
 
     y_hats = []
-    for x in load_images(paths, transform):
+    for x in tqdm.tqdm(load_images(paths, transform)):
         with torch.no_grad():
-            x = x.to(device)
+            x = x.unsqueeze(0).to(device)
             output = model(x)
         y_hat = torch.argmax(output, dim=1).detach().cpu().numpy()
         y_hats.append(y_hat)
     y_hats = np.array(y_hats)
-    return y_hats
+    return y_hats.flatten()
+
+
+if __name__ == "__main__":
+    # Won't work with default resnet, change to our model after it exists
+    model = torchvision.models.resnet18(False)
+    y_hats = test(model, "D:\\SDU\\project\\data\\")

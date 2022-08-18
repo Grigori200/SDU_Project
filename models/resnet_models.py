@@ -19,6 +19,7 @@ class ResNet(nn.Module):
         n_blocks: int = 10,
         blocks_types: str = 'resnet',
         n_classes: int = 2,
+        dropout_pb: float = 0.0,
         **kwargs
     ) -> None:
         super(ResNet, self).__init__()
@@ -45,6 +46,7 @@ class ResNet(nn.Module):
             act_fn()
         )
 
+        self.dp = nn.Dropout(dropout_pb)
         self.fc = nn.Linear(out_channels, n_classes)
         
     def forward(self, x):
@@ -54,5 +56,6 @@ class ResNet(nn.Module):
 
         x = nn.functional.adaptive_avg_pool2d(x, 1)
         x = x.view(x.data.size(0), -1)
+        x = self.dp(x)
         x = self.fc(x)
         return x
