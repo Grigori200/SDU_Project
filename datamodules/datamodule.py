@@ -23,7 +23,7 @@ class PneumoniaDataModule(pl.LightningDataModule):
                  target_name: str = 'labels',
                  split_name: str = 'splits',
                  batch_size: int = 16,
-                 num_workers: int = 12,
+                 num_workers: int = 8,
                  shuffle_train: bool = True
                  ):
         """

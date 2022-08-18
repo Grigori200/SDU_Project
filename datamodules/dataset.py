@@ -63,4 +63,5 @@ class PneumoniaData(Dataset):
         row = self.data.iloc[idx]
         path, label = row[self.path_name], row[self.label_name]
         image = self._process_image(path)
-        return {'x': image, 'y': label}
+        # return {'x': image, 'y': label}
+        return image, label.astype('longlong')
