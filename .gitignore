@@ -2,3 +2,5 @@
 /notebooks/lightning_logs
 /notebooks/wandb
 /**/__pycache__
+/venv/
+/split_data/
