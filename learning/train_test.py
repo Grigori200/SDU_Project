@@ -12,8 +12,6 @@ def train_test_model(
     criterion,
     optimizer, 
     lr_scheduler,
-    optim_hparams,
-    scheduler_hparams,
     gpus,
     logger,
     callbacks,
@@ -21,14 +19,14 @@ def train_test_model(
     max_epochs: int = 100,
     precision: int = 16,
     strategy: str = "ddp",
+    optim_hparams = {}
 ):
     module = Classifier(
         model=model,
         criterion=criterion,
         optimizer=optimizer,
         lr_scheduler=lr_scheduler,
-        optim_hparams=optim_hparams,
-        scheduler_hparams=scheduler_hparams,
+        optim_hparams=optim_hparams
     )
     trainer = pl.Trainer(
         max_epochs=max_epochs,

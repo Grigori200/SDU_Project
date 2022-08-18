@@ -15,8 +15,7 @@ class Classifier(pl.LightningModule):
         criterion: nn.Module,
         optimizer: torch.optim.Optimizer = torch.optim.Adam,
         lr_scheduler: torch.optim.lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau,
-        optim_hparams: Dict[str, Any] = {'lr': 1e-4},
-        scheduler_hparams: Dict[str, Any] = {'epochs': 5},
+        optim_hparams={},
         **kwargs
 
     ) -> None:
@@ -30,7 +29,6 @@ class Classifier(pl.LightningModule):
         self.optim_hparams = optim_hparams
 
         self.lr_scheduler = lr_scheduler,
-        self.scheduler_hparams = scheduler_hparams
 
         self.train_acc = Accuracy()
         self.val_acc = Accuracy()
@@ -101,7 +99,8 @@ class Classifier(pl.LightningModule):
         Configure optimizer and returns it
         :return: torch optimizer
         """
-        optimizer = self.optimizer(self.model.parameters(), lr=1e-4, weight_decay=1e-5)#**self.optim_hparams)
+        optimizer = self.optimizer(self.model.parameters(), lr=self.optim_hparams["lr"], 
+            weight_decay=self.optim_hparams["weight_decay"], nesterov=self.optim_hparams["nesterov"])#**self.optim_hparams)
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100) #**self.scheduler_hparams)
         return [optimizer], [scheduler]
 

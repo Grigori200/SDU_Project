@@ -20,6 +20,11 @@ def parse_sweep_args() -> argparse.Namespace:
     parser.add_argument("--weight_decay", type=float)
     parser.add_argument("--batch_size", type=int)
     parser.add_argument("--label_smoothing", type=float)
+    parser.add_argument("--channels", type=int)
+    parser.add_argument("--out_channels", type=int)
+    parser.add_argument("--n_blocks", type=int)
+    parser.add_argument("--block_types", type=str)
+    parser.add_argument("--dropout_pb", type=float)
     parser.add_argument("--number_of_ensemble_models", type=int)
     parser.add_argument("--project_name", type=str)
     parser.add_argument("--entity_name", type=str)
@@ -35,6 +40,11 @@ def load_hyperparams():
     hyperparams["weight_decay"] = parser.weight_decay
     hyperparams["batch_size"] = parser.batch_size
     hyperparams["label_smoothing"] = parser.label_smoothing
+    hyperparams["channels"] = parser.channels
+    hyperparams["out_channels"] = parser.out_channels
+    hyperparams["n_blocks"] = parser.n_blocks
+    hyperparams["block_types"] = parser.block_types
+    hyperparams["dropout_pb"] = parser.dropout_pb
     hyperparams["number_of_ensemble_models"] = parser.number_of_ensemble_models
     hyperparams["project_name"] = parser.project_name
     hyperparams["entity_name"] = parser.entity_name
@@ -45,7 +55,7 @@ def load_hyperparams():
 def get_optimizer(model, hyperparams):
     return AdamP(
         model.parameters(),
-        lr=hyperparams["lr"],
+        lr=hyperparams["learning_rate"],
         betas=(hyperparams["betas"][0], hyperparams["betas"][1]),
         weight_decay=hyperparams["weight_decay"],
         nesterov=hyperparams["nesterov"],
