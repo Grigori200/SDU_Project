@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+from typing import List
 import torch
 import numpy as np
 import torchvision
@@ -12,7 +13,17 @@ hyperparams = {
 }
 
 
-def load_images(filenames, transform):
+def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
+    """
+    Image generator. Yields transformed and normalized images one by one.
+
+    Args:
+        :filenames: (List[str]) List of images paths
+        :transform: (Compose): Composition of transforms for all images
+    
+    Yields:
+        (torch.Tensor): transformed and normalized image
+    """
     for filename in filenames:
         img = Image.open(filename)
         img = transform(img)
@@ -20,9 +31,17 @@ def load_images(filenames, transform):
         yield img
         
 
-def load_lightning_model(
-    model, ckpt_path: str
-):
+def load_lightning_model(model, ckpt_path: str):
+    """
+    Load lightning model from given checkpoint path.
+
+    Args:
+        :model: a clean model instance
+        :ckpt_path: (str): Path to the model checkpoint
+    
+    Returns:
+        loaded model.
+    """
     # TODO: Change to correct class
     classifier = Classifier(model=model)
     classifier.load_from_checkpoint(
@@ -31,7 +50,16 @@ def load_lightning_model(
     return classifier.model
 
 
-def get_filenames(dir_path):
+def get_paths(dir_path: str) -> List[str]:
+    """
+    Get image paths from given directory path.
+
+    Args:
+        :dir_path: (str): Path to the directory with all the images
+    
+    Returns:
+        (List[str]): a list of image paths from given directory path
+    """
     filenames = []
     if dir_path[-1] != "/" and dir_path[-1] != "\\":
         if "/" in dir_path:
@@ -45,9 +73,18 @@ def get_filenames(dir_path):
     return filenames 
 
 
-def test(dir_path: str):
+def test(dir_path: str) -> np.ndarray:
+    """
+    Test a model on images from provided directory path.
+
+    Args:
+        :dir_path: (str): Path to the directory with all the images
+    
+    Returns:
+        (np.ndarray): an array of class predictions for given images
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    filenames = get_filenames(dir_path)
+    paths = get_paths(dir_path)
     transform = Compose(
         Resize((hyperparams["resolution"], hyperparams["resolution"])),
         ToTensor()
@@ -58,11 +95,11 @@ def test(dir_path: str):
     model.eval()
 
     y_hats = []
-    for x in load_images(filenames, transform):
+    for x in load_images(paths, transform):
         with torch.no_grad():
             x = x.to(device)
             output = model(x)
-            y_hat = torch.argmax(output, dim=1).detach().cpu().numpy()
-            y_hats.append(y_hat)
+        y_hat = torch.argmax(output, dim=1).detach().cpu().numpy()
+        y_hats.append(y_hat)
     y_hats = np.array(y_hats)
     return y_hats
