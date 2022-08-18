@@ -30,7 +30,7 @@ if __name__ == '__main__':
         "channels": 64,
         "out_channels": 64,
         "act_fn":  nn.GELU,
-        "n_blocks":  2,
+        "n_blocks":  3,
         "blocks_types": 'resnet',
         "n_classes": 2,
         "dropout_pb":  0.3,            
@@ -51,7 +51,7 @@ if __name__ == '__main__':
             'T_max': 100
         },
         
-        "n_models": 5,
+        "n_models": 9,
     }
 
     datamodule = PneumoniaDataModule(**datamodule_kwargs)
