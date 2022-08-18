@@ -1,4 +1,5 @@
 import argparse
+from adamp import AdamP
 
 
 def boolean_string(s):
@@ -41,3 +42,13 @@ def load_hyperparams():
     hyperparams["EMA"] = parser.EMA
     
     return hyperparams
+
+
+def get_optimizer(model, hyperparams):
+    return AdamP(
+        model.parameters(),
+        lr=hyperparams["lr"],
+        betas=(hyperparams["betas"][0], hyperparams["betas"][1]),
+        weight_decay=hyperparams["weight_decay"],
+        nesterov=hyperparams["nesterov"],
+    )
