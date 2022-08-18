@@ -82,5 +82,10 @@ if __name__ == '__main__':
         **trainer_kwargs
     )
 
-    train_xgboost(model, )
+    train_dataloader = datamodule.train_dataloader()
+    test_dataloader = datamodule.test_dataloader()
+
+    DEVICE = torch.device("cuda:0") if torch.cuda.is_available else torch.device('cpu')
+    
+    train_xgboost(model, train_dataloader, test_dataloader, DEVICE)
 

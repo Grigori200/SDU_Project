@@ -2,7 +2,7 @@ from typing import *
 
 from torch import nn
 from xgboost import XGBClassifier
-import xgboost as xgb
+import numpy as np
 
 
 class XGBoostCNN(nn.Module):
@@ -57,11 +57,25 @@ class XGBConvBlock(nn.Module):
         return self.model(x)
 
 
-def train_xgboost(model, x_train, y_train, x_val, y_val):
+def train_xgboost(model, train_dataloader, test_dataloader, DEVICE):
+    model.eval()
     model.model = nn.Sequential(*[model.model[i] for i in range(7)])
-    x_preprocessed = model(x_train)
     xgbmodel = XGBClassifier(objective='multi:softprob',
-                             num_class=2)
-    xgb.train()
-    xgbmodel.fit(x_preprocessed, y_train)
-    print(xgbmodel.score(x_val, y_val))
+                                num_class=2)
+    for x, y in train_dataloader:
+        x = x.to(DEVICE)
+        y = np.array(y)
+        x_preprocessed = np.array(model(x))
+        xgbmodel.fit(x_preprocessed, y)
+        
+    y_trues = []
+    y_preds = []
+    for x, y_true in test_dataloader:
+        x = np.array(x)
+        y_pred = xgbmodel.predict(x)    
+        y_preds.extend(y_pred)
+        y_trues.extend(np.array(y_true))
+    
+    y_preds = np.array(y_preds)
+    y_trues = np.array(y_trues)
+    print(f'Test accuracy: {(y_preds == y_true).sum() / len(y_preds)}')
