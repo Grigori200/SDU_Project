@@ -7,12 +7,9 @@ import torchvision
 from torchvision.transforms import ToTensor, Resize, Compose
 from datamodules.transforms import test_val_transforms
 import tqdm
-
-
-hyperparams = {
-    "resolution": 336,
-    "model_path": ""
-}
+import argparse
+from models.classifier import Classifier
+import pandas as pd
 
 
 def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
@@ -88,7 +85,7 @@ def test(model, dir_path: str) -> np.ndarray:
     """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     paths = get_paths(dir_path)
-    transform = test_val_transforms((hyperparams["resolution"], hyperparams["resolution"]), normalize=True)
+    transform = test_val_transforms((80, 80), normalize=True)
     model = model.to(device)
     model.eval()
 
@@ -103,7 +100,20 @@ def test(model, dir_path: str) -> np.ndarray:
     return y_hats.flatten()
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse args from input
+    Returns:
+        - argparse.Namespace: Namespace with given attributes
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model_path", type=str)
+    parser.add_argument("--data_path", type=str)
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    # Won't work with default resnet, change to our model after it exists
-    model = torchvision.models.resnet18(False)
-    y_hats = test(model, "D:\\SDU\\project\\data\\")
+    parser = parse_args()
+    model = Classifier.load_from_checkpoint(parser.model_path).model
+    y_hats = test(model, parser.data_path)
+    y_hats = pd.DataFrame(y_hats, columns=["predictions"])
+    y_hats.to_csv("predictions.csv")
