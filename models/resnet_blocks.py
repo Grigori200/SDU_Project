@@ -53,6 +53,14 @@ class ResNetInceptionBlock(nn.Module):
         se: bool = True,
         **kwargs
     ) -> None:
+        """
+        A convolutional neural network building block combining residual connections, inception block and Squeeze and Exciation.
+
+        Args:
+            channels (int): The number of input channels.
+            act_fn (Type[nn.Module], optional): the activation function. Defaults to nn.GELU.
+            se (bool, optional): whether to use squeeze and excitation. Defaults to True.
+        """
         super(ResNetInceptionBlock, self).__init__()
 
         self.se = se
@@ -69,6 +77,15 @@ class ResNetInceptionBlock(nn.Module):
         self.act_fn = act_fn()
 
     def forward(self, x):
+        """
+        Fowards the input through the network.
+
+        Args:
+            x (torch.Tensor): an input tensor.
+
+        Returns:
+            torch.Tensor: an output tensor processed through network.
+        """
         x2 = self.inception_block(x)
         x2 = self.conv2(x2)
         if self.se:
