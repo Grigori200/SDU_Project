@@ -27,7 +27,6 @@ def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
     for filename in filenames:
         img = Image.open(filename)
         img = transform(img)
-        img = img.float() / 255.0
         yield img
 
 
@@ -105,7 +104,7 @@ if __name__ == "__main__":
     Author: Adam
     """
     parser = parse_args()
-    model = torch.load(parser.model_path, map_location=torch.device('cpu'))
+    model = torch.load(parser.model_path, map_location=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
     y_hats = test(model, parser.data_path)
     y_hats = pd.DataFrame(y_hats, columns=["predictions"])
     y_hats.to_csv("predictions.csv")
