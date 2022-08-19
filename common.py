@@ -2,15 +2,28 @@ import argparse
 from adamp import AdamP
 
 
-def boolean_string(s):
-    """TODO."""
+def boolean_string(s: str) -> bool:
+    """
+    Checks whether the string represents a boolean value.
+
+    Args:
+        s (str): the string to check.
+
+    Raises:
+        ValueError: raises when s not in {"False", "True"}.
+
+    Returns:
+        bool: whether the string represents a boolean value.
+    """
     if s not in {"False", "True"}:
         raise ValueError("Not a valid boolean string")
     return s == "True"
 
 
 def parse_sweep_args() -> argparse.Namespace:
-    """Parse hyperparameters from json file.
+    """
+    Parse hyperparameters from json file.
+    
     Returns:
         - argparse.Namespace: Namespace with attributes named after json keys
     """
@@ -34,7 +47,12 @@ def parse_sweep_args() -> argparse.Namespace:
 
 
 def load_hyperparams():
-    """TODO."""
+    """
+    Loads the hyperparameters from the parser to the dictionary.
+
+    Returns:
+        Dict[str, Any]: a dictionary of hyperparameters.
+    """
     parser = parse_sweep_args()
     hyperparams = {}
     hyperparams["learning_rate"] = parser.learning_rate
