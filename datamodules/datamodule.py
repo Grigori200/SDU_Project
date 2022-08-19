@@ -27,8 +27,26 @@ class PneumoniaDataModule(pl.LightningDataModule):
                  shuffle_train: bool = True,
                  **kwargs
                  ):
+        """
+        Provides DataLoaders for each data split.
+        
+        Args:
+        :csv_path: (str) The path to the CSV file.
+        :train_split_name: (str) The name of the train split in the split column. Defaults to 'train'.
+        :val_split_name: (str) The name of the validation split in the split column. Defaults to 'val'.
+        :test_split_name: (str) The name of the test split in the split column. Defaults to 'test'.
+        :train_transforms: (Compose) The compose of transforms to perform on train data. Defaults to train_transforms((224, 224), True).
+        :val_transforms: (Compose) The compose of transforms to perform on validation data. Defaults to test_val_transforms((224, 224), True).
+        :test_transforms: (Compose) The compose of transforms to perform on test data. Defaults to test_val_transforms((224, 224), True).
+        :image_path_name: (str) The name of the csv column containing information about the image filename. Defaults to 'filename'.
+        :target_name: (str) The name of the csv column containing information about the label of a sample. Defaults to 'labels'.
+        :split_name: (str) The name of the csv column containing information about the split to which a sample belongs. Defaults to 'splits'.
+        :batch_size: (int) The batch size. Defaults to 16.
+        :num_workers: (int) The amount of workers for each DataLoader. Defaults to 12.
+        :shuffle_train: (bool) Whether to shuffle train data in train DataLoader. Defaults to True.
+        """
         super(PneumoniaDataModule, self).__init__()
-
+        
         # path
         self.csv_path: str = csv_path
         # split names
@@ -51,6 +69,9 @@ class PneumoniaDataModule(pl.LightningDataModule):
         self.data: Dict[str, pd.DataFrame] = {}
 
     def prepare_data(self) -> None:
+        """
+        Prepare dataframes for each split.
+        """
         df = pd.read_csv(self.csv_path)
         self.data['train'] = df[df[self.split_name] == self.train_split_name]
         self.data['val'] = df[df[self.split_name] == self.val_split_name]
@@ -58,8 +79,10 @@ class PneumoniaDataModule(pl.LightningDataModule):
 
     def train_dataloader(self) -> DataLoader:
         """
-        Prepares and returns train dataloader
-        :return:
+        Prepares and returns train DataLoader
+        
+        Returns: 
+        (DataLoader): a train DataLoader.
         """
         return DataLoader(
             PneumoniaData(self.data['train'],
@@ -73,8 +96,10 @@ class PneumoniaDataModule(pl.LightningDataModule):
 
     def val_dataloader(self) -> DataLoader:
         """
-        Prepares and returns validate dataloader
-        :return:
+        Prepares and returns validation DataLoader
+        
+        Returns: 
+        (DataLoader): a validation DataLoader.
         """
         return DataLoader(
             PneumoniaData(self.data['val'],
@@ -87,8 +112,10 @@ class PneumoniaDataModule(pl.LightningDataModule):
 
     def test_dataloader(self) -> DataLoader:
         """
-        Prepares and returns test dataloader
-        :return:
+        Prepares and returns test DataLoader
+        
+        Returns: 
+        (DataLoader): a test DataLoader.
         """
         return DataLoader(
             PneumoniaData(self.data['test'],
