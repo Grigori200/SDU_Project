@@ -8,7 +8,6 @@ from torchvision.transforms import ToTensor, Resize, Compose
 from datamodules.transforms import test_val_transforms
 import tqdm
 import argparse
-from models.classifier import Classifier
 import pandas as pd
 
 
@@ -113,7 +112,7 @@ def parse_args() -> argparse.Namespace:
 
 if __name__ == "__main__":
     parser = parse_args()
-    model = Classifier.load_from_checkpoint(parser.model_path).model
+    model = torch.load(parser.model_path, map_location=torch.device('cpu'))
     y_hats = test(model, parser.data_path)
     y_hats = pd.DataFrame(y_hats, columns=["predictions"])
     y_hats.to_csv("predictions.csv")
