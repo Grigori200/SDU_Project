@@ -14,13 +14,20 @@ from adamp import AdamP
 
 
 if __name__ == '__main__':
+    """
+    Main pipeline function.
+    """
+    # Load the hyperparameters.
     hyperparams = load_hyperparams()
+    
+    # Setup constant variables.
     WANDB_PROJECT_NAME = "PneumoniaSDU"
     ENTITY='kn-bmi'
     DATAMODULE_CLS = PneumoniaDataModule
     LOGS_DIR = "save"
     RUN_NAME = "TestRun"
 
+    # Prepare DataModule hyperparameters.
     datamodule_kwargs = {
         "csv_path": "data_split_to_dirs.csv",
         "batch_size": 16,
@@ -28,6 +35,7 @@ if __name__ == '__main__':
         "normalize": True
     }
 
+    # Prepare model hyperparameters.
     model_kwargs = {
         "in_channels": 1,
         "channels": 128,
@@ -38,6 +46,8 @@ if __name__ == '__main__':
         "n_classes": 2,
         "dropout_pb":  0.5,            
     }
+    
+    # Prepare hyperparameters of objects used for training the model.
     trainer_kwargs = {
         'max_epochs': 100,
 
@@ -45,31 +55,40 @@ if __name__ == '__main__':
 
         "optimizer": AdamP,
 
-
         "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau,
 
-
         "precision": 16,
+        
         "strategy": "ddp",
     }
+    
+    # Prepare optimizer hyperparameters.
     optim_hparams = {
         "lr": 3e-4,
         "nesterov": True,
         "weight_decay": 0.05,
     }
-    ls = 0.3 #hyperparams["label_smoothing"]
+    
+    # Fixed label smoothing value.
+    ls = 0.3 
 
     size = datamodule_kwargs["size"]
+    
+    # Create the datamodule with selected transformations.
     datamodule = PneumoniaDataModule(
         **datamodule_kwargs,
         train_transforms = train_transforms((size, size), datamodule_kwargs["normalize"]),
         val_transforms = test_val_transforms((size, size), datamodule_kwargs["normalize"]),
         test_transforms = test_val_transforms((size, size), datamodule_kwargs["normalize"]),
         )
+    
+    # Prepare the dataloaders.
     datamodule.prepare_data()
+    
+    # Create the model.
     model = ResNet(**model_kwargs)
 
-
+    # Combine all hyperparamters.
     hparams = {
         "dataset": type(datamodule).__name__,
         **datamodule_kwargs,
@@ -80,6 +99,7 @@ if __name__ == '__main__':
         "test_size": len(datamodule.test_dataloader().dataset) 
     }
 
+    # Create the logger.
     logger = WandbLogger(
         save_dir=str(LOGS_DIR),
         config=hparams,
@@ -88,6 +108,7 @@ if __name__ == '__main__':
         entity=ENTITY
     )
 
+    # Perform model training and evaluation.
     train_test_model(
         model=model,
         criterion=nn.CrossEntropyLoss(label_smoothing=ls),
