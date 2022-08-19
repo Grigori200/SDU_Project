@@ -13,6 +13,14 @@ class SAEBlock(nn.Module):
         reduction: int = 16,
         act_fn: Type[nn.Module] = nn.GELU
     ) -> None:
+        """
+        A Squeeze and Excitation convolutional neural network building block.
+
+        Args:
+            channels (int): The number of input channels.
+            reduction (int, optional): A coefficient of channels number reduction. Defaults to 16.
+            act_fn (Type[nn.Module], optional): An activation function. Defaults to nn.GELU.
+        """
         super(SAEBlock, self).__init__()
         assert channels >= reduction, f'Reduction = {reduction} must be <= than num of channels = {channels}'
         self.cnn = nn.Sequential(
@@ -22,6 +30,15 @@ class SAEBlock(nn.Module):
         )
         
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Fowards the input through the network.
+
+        Args:
+            x (torch.Tensor): an input tensor.
+
+        Returns:
+            torch.Tensor: an output tensor processed through network.
+        """
         dx = nn.functional.adaptive_avg_pool2d(x, 1)
         dx = self.cnn(dx)
         dx1, dx2 = dx.split(dx.data.size(1) // 2, dim=1)
@@ -37,6 +54,14 @@ class InceptionBlock(nn.Module):
         channels: int,
         act_fn: nn.Module
         ) -> None:
+        """
+        A convolutional neural network building block introduced in Inception CNN family.
+
+        Args:
+            input_channels (int): The number of input channels.
+            channels (int): The number of output channels in each of four branches of inception block. Total output number of channels equals to channels * 4.
+            act_fn (nn.Module): An activation function.
+        """
         super(InceptionBlock, self).__init__()
         
         self.b1 = nn.Sequential(
@@ -73,7 +98,15 @@ class InceptionBlock(nn.Module):
         )
         
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        
+        """
+        Fowards the input through the network.
+
+        Args:
+            x (torch.Tensor): an input tensor.
+
+        Returns:
+            torch.Tensor: an output tensor processed through network.
+        """
         x1 = self.b1(x)
         x2 = self.b2(x)
         x3 = self.b3(x)
