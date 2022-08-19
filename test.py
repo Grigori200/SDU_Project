@@ -74,8 +74,7 @@ def test(model, dir_path: str) -> np.ndarray:
         with torch.no_grad():
             x = x.unsqueeze(0).to(device)
             output = model(x)
-        y_hat = torch.argmax(output, dim=1).detach().cpu().numpy()
-        y_hats.append(y_hat)
+        y_hats.append(output)
     y_hats = np.array(y_hats)
     return y_hats.flatten()
 
