@@ -25,7 +25,6 @@ def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
     for filename in filenames:
         img = Image.open(filename)
         img = transform(img)
-        img = img.float() / 255.0
         yield img
 
 
