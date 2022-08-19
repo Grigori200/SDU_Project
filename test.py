@@ -27,25 +27,6 @@ def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
         img = transform(img)
         img = img.float() / 255.0
         yield img
-        
-
-def load_lightning_model(model, ckpt_path: str):
-    """
-    Load lightning model from given checkpoint path.
-
-    Args:
-        :model: a clean model instance
-        :ckpt_path: (str): Path to the model checkpoint
-    
-    Returns:
-        loaded model.
-    """
-    # TODO: Change to correct class
-    classifier = Classifier(model=model)
-    classifier.load_from_checkpoint(
-        checkpoint_path=ckpt_path, model=model
-    )
-    return classifier.model
 
 
 def get_paths(dir_path: str) -> List[str]:
