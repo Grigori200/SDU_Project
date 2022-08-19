@@ -5,8 +5,7 @@ from torch import nn
 from pytorch_lightning import callbacks
 from pytorch_lightning.loggers import WandbLogger
 from datamodules.datamodule import PneumoniaDataModule
-from datamodules.dataset import PneumoniaData
-
+from datamodules.transforms import train_transforms, test_val_transforms
 
 from models import ResNet
 from learning import train_test_model
@@ -24,6 +23,8 @@ if __name__ == '__main__':
     datamodule_kwargs = {
         "csv_path": "/home/konradkaranowski/SDU_Project/data_split_to_dirs.csv",
         "batch_size": hyperparams["batch_size"],
+        "size": hyperparams["size"],
+        "normalize": hyperparams["normalize"]
     }
 
     model_kwargs = {
@@ -56,7 +57,13 @@ if __name__ == '__main__':
         "weight_decay": hyperparams["weight_decay"],
     }
 
-    datamodule = PneumoniaDataModule(**datamodule_kwargs)
+    size = datamodule_kwargs["size"]
+    datamodule = PneumoniaDataModule(
+        **datamodule_kwargs,
+        train_transforms = train_transforms((size, size), datamodule_kwargs["normalize"]),
+        val_transforms = test_val_transforms((size, size), datamodule_kwargs["normalize"]),
+        test_transforms = test_val_transforms((size, size), datamodule_kwargs["normalize"]),
+        )
     datamodule.prepare_data()
     model = ResNet(**model_kwargs)
 
@@ -83,7 +90,7 @@ if __name__ == '__main__':
         criterion=nn.CrossEntropyLoss(label_smoothing=hyperparams["label_smoothing"]),
         datamodule=datamodule,
         logger=logger,
-        callbacks=[callbacks.EarlyStopping(monitor='val/loss', min_delta=1e-4, patience=3)],
+        callbacks=[callbacks.EarlyStopping(monitor='val/acc', mode='max', min_delta=1e-4, patience=6)],
         **trainer_kwargs,
         optim_hparams=optim_hparams
     )
