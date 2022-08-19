@@ -34,6 +34,8 @@ class ResNet(nn.Module):
             blocks_types (str, optional): the type of ResNet blocks used to build the model. Defaults to 'resnet'.
             n_classes (int, optional): The number of output classes. Defaults to 2.
             dropout_pb (float, optional): The dropout probability. Defaults to 0.0.
+        
+        Author: Konrad
         """
         super(ResNet, self).__init__()
 
@@ -71,6 +73,8 @@ class ResNet(nn.Module):
 
         Returns:
             torch.Tensor: an output tensor processed through network.
+        
+        Author: Konrad
         """
         x = self.input_conv(x)
         x = self.blocks(x)

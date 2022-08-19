@@ -16,6 +16,8 @@ from adamp import AdamP
 if __name__ == '__main__':
     """
     Main pipeline function.
+    
+    Author: Mateusz
     """
     # Load the hyperparameters.
     hyperparams = load_hyperparams()

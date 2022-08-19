@@ -4,12 +4,16 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from PIL import Image
 
+# Author: Adrian
 
+# Prepare dataframe of images in the provided directory.
 filenames_normal = [f'data/{i}_normal.jpg' for i in range(1, 1101)]
 filenames_positive = [f'data/{i}_pneumonia.jpg' for i in range(1, 1101)]
 labels = list(np.zeros(1100)) + list(np.ones(1100))
 filenames = filenames_normal + filenames_positive
 indexes = np.arange(2200)
+
+# Split the data into training, validation and test sets.
 train_idxs, test_idxs = train_test_split(indexes, test_size=0.2, random_state=42)
 train_idxs, val_idxs = train_test_split(train_idxs, test_size=0.15, random_state=42)
 splits = np.empty(2200, dtype='object')
@@ -29,6 +33,7 @@ df = pd.DataFrame({
 })
 df.to_csv('data/data.csv')
 
+# Split the data into proper directiories.
 train_data = []
 val_data = []
 test_data = []
@@ -78,6 +83,7 @@ for filename, split, label, image in zip(df_filenames, df_splits, df_labels, all
       img.save(filename)
   dir_df_filenames.append(filename)
 
+# Save the modified dataframe with paths to moved images.
 dir_df = pd.DataFrame({
     'filename': dir_df_filenames,
     'splits': df_splits,

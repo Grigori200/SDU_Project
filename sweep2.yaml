@@ -1,3 +1,4 @@
+# Author: Adam
 program: sweep.py # Change approprietaly
 arg: CUDA_VISIBLE_DEVICES=0
 method: random

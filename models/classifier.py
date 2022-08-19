@@ -28,6 +28,8 @@ class Classifier(pl.LightningModule):
             optimizer (torch.optim.Optimizer, optional): The optimizer. Defaults to torch.optim.Adam.
             lr_scheduler (torch.optim.lr_scheduler, optional): The learning rate scheduler. Defaults to torch.optim.lr_scheduler.ReduceLROnPlateau.
             optim_hparams (dict, optional): The optimizer hyperparameters. Defaults to {}.
+        
+        Author: Adam
         """
         super(Classifier, self).__init__()
         self.save_hyperparameters()
@@ -57,6 +59,8 @@ class Classifier(pl.LightningModule):
 
         Returns:
             torch.Tensor: an output tensor processed through model.
+            
+        Author: Adam
         """
         return self.model(x)
 
@@ -69,6 +73,8 @@ class Classifier(pl.LightningModule):
 
         Returns:
             Tuple[nn.Module, torch.Tensor, torch.Tensor]: the tuple of loss, predicted labels and true labels.
+        
+        Author: Adam
         """
         x, y = batch['x'], batch['y'].long()
         logits = self.forward(x)
@@ -86,6 +92,8 @@ class Classifier(pl.LightningModule):
 
         Returns:
             Dict[str, torch.Tensor]: a dictionary containing the training loss, predicted labels and true labels. 
+        
+        Author: Adam
         """
         loss, preds, targets = self.step(batch)
 
@@ -105,6 +113,8 @@ class Classifier(pl.LightningModule):
 
         Args:
             outputs (List[Any]): a list of dicts returned from training_step().
+        
+        Author: Adam
         """
         self.train_acc.reset()
 
@@ -118,6 +128,8 @@ class Classifier(pl.LightningModule):
 
         Returns:
             Dict[str, torch.Tensor]: a dictionary containing the validation loss, predicted labels and true labels. 
+        
+        Author: Adam
         """
         loss, preds, targets = self.step(batch)
 
@@ -135,6 +147,8 @@ class Classifier(pl.LightningModule):
 
         Args:
             outputs (List[Any]): a list of dicts returned from validation_step().
+        
+        Author: Adam
         """
         acc = self.val_acc.compute()
         self.val_acc_best.update(acc)
@@ -151,6 +165,8 @@ class Classifier(pl.LightningModule):
 
         Returns:
             Dict[str, torch.Tensor]: a dictionary containing the test loss, predicted labels and true labels. 
+        
+        Author: Adam
         """
         loss, preds, targets = self.step(batch)
 
@@ -167,6 +183,8 @@ class Classifier(pl.LightningModule):
 
         Args:
             outputs (List[Any]): a list of dicts returned from test_step().
+        
+        Author: Adam
         """
         self.test_acc.reset()
 
@@ -175,7 +193,9 @@ class Classifier(pl.LightningModule):
         Configure optimizer and return it
         
         Returns:
-        Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.CosineAnnealingLR] a tuple of optimizer and learning rate scheduler used for training. 
+            Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.CosineAnnealingLR] a tuple of optimizer and learning rate scheduler used for training. 
+        
+        Author: Adam
         """
         optimizer = self.optimizer(self.model.parameters(), lr=self.optim_hparams["lr"], 
             weight_decay=self.optim_hparams["weight_decay"], nesterov=self.optim_hparams["nesterov"])
@@ -192,6 +212,8 @@ class Classifier(pl.LightningModule):
             scheduler (torch.optim.lr_scheduler._LRScheduler): the learning rate scheduler used in the training process.
             optimizer_idx (int): Index of the optimizer associated with this scheduler.
             metric (Optional[Any]): Value of the monitor used for ReduceLROnPlateau learning rate scheduler.
+        
+        Author: Adam
         """
         if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
             scheduler.step(epoch=self.current_epoch, metrics=metric)

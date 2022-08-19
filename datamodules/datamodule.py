@@ -44,6 +44,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
         :batch_size: (int) The batch size. Defaults to 16.
         :num_workers: (int) The amount of workers for each DataLoader. Defaults to 12.
         :shuffle_train: (bool) Whether to shuffle train data in train DataLoader. Defaults to True.
+        
+        Author: Papichaya
         """
         super(PneumoniaDataModule, self).__init__()
         
@@ -71,6 +73,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
     def prepare_data(self) -> None:
         """
         Prepare dataframes for each split.
+        
+        Author: Papichaya
         """
         df = pd.read_csv(self.csv_path)
         self.data['train'] = df[df[self.split_name] == self.train_split_name]
@@ -83,6 +87,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
         
         Returns: 
         (DataLoader): a train DataLoader.
+        
+        Author: Papichaya
         """
         return DataLoader(
             PneumoniaData(self.data['train'],
@@ -100,6 +106,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
         
         Returns: 
         (DataLoader): a validation DataLoader.
+        
+        Author: Papichaya
         """
         return DataLoader(
             PneumoniaData(self.data['val'],
@@ -116,6 +124,8 @@ class PneumoniaDataModule(pl.LightningDataModule):
         
         Returns: 
         (DataLoader): a test DataLoader.
+        
+        Author: Papichaya
         """
         return DataLoader(
             PneumoniaData(self.data['test'],

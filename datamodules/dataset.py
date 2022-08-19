@@ -22,6 +22,8 @@ class PneumoniaData(Dataset):
             transforms (Compose): Transforms to apply on loaded images.
             image_path_name (str, optional): A name of a column containing paths to images. Defaults to 'filename'.
             label_name (str, optional): A name of a column containing labels of images. Defaults to 'labels'.
+            
+        Author: Apichaya
         """
         self.data = df
         self.transforms = transforms
@@ -34,6 +36,8 @@ class PneumoniaData(Dataset):
         
         Returns:
             int: the length of the dataset.
+            
+        Author: Apichaya
         """
         return self.data.__len__()
 
@@ -46,6 +50,8 @@ class PneumoniaData(Dataset):
             
         Returns:
             torch.Tensor: a transformed image.
+            
+        Author: Apichaya
         """
         img = Image.open(image_path)
         return self.transforms(img)
@@ -59,6 +65,8 @@ class PneumoniaData(Dataset):
             
         Returns:
             Dict[str, torch.Tensor]: a dictionary with input and target keys representing an image and a label respectively.
+            
+        Author: Apichaya
         """
         row = self.data.iloc[idx]
         path, label = row[self.path_name], row[self.label_name]

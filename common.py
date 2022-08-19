@@ -14,6 +14,8 @@ def boolean_string(s: str) -> bool:
 
     Returns:
         bool: whether the string represents a boolean value.
+        
+    Author: Adam
     """
     if s not in {"False", "True"}:
         raise ValueError("Not a valid boolean string")
@@ -26,6 +28,8 @@ def parse_sweep_args() -> argparse.Namespace:
     
     Returns:
         - argparse.Namespace: Namespace with attributes named after json keys
+        
+    Author: Adam
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--learning_rate", type=float)
@@ -52,6 +56,8 @@ def load_hyperparams():
 
     Returns:
         Dict[str, Any]: a dictionary of hyperparameters.
+        
+    Author: Adam
     """
     parser = parse_sweep_args()
     hyperparams = {}

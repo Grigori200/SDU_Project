@@ -38,6 +38,8 @@ def train_test_model(
         precision (int, optional): a float precision in classifier training process. Defaults to 16.
         strategy (str, optional): a data distribution strategy. Defaults to "ddp".
         optim_hparams (Dict): optimizer hyperparameters.
+        
+    Author: Mateusz
     """
     module = Classifier(
         model=model,
