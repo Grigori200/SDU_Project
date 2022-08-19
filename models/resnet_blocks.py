@@ -18,6 +18,17 @@ class ResNetBlock(nn.Module):
         se: bool = True,
         **kwargs
     ) -> None:
+        """
+        Convolutional Neural Network building block with residual connections and Sequeeze and Excitation.
+
+        Args:
+            channels (int): a number of input and output channels
+            act_fn (Type[nn.Module], optional): the activation function. Defaults to nn.GELU.
+            bias (bool, optional): the bias value. Defaults to True.
+            se (bool, optional): whether to use Squeeze and Excitation. Defaults to True.
+            
+        Author: Konrad
+        """
         super(ResNetBlock, self).__init__()
 
         self.se = se
@@ -36,6 +47,17 @@ class ResNetBlock(nn.Module):
         self.act = act_fn()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Fowards the input through the network.
+
+        Args:
+            x (torch.Tensor): an input tensor.
+
+        Returns:
+            torch.Tensor: an output tensor processed through network.
+            
+        Author: Konrad
+        """
         x2 = self.conv(x)
         if self.se:
             x2 = self.seb(x2)
@@ -60,6 +82,8 @@ class ResNetInceptionBlock(nn.Module):
             channels (int): The number of input channels.
             act_fn (Type[nn.Module], optional): the activation function. Defaults to nn.GELU.
             se (bool, optional): whether to use squeeze and excitation. Defaults to True.
+            
+        Author: Konrad
         """
         super(ResNetInceptionBlock, self).__init__()
 
@@ -85,6 +109,8 @@ class ResNetInceptionBlock(nn.Module):
 
         Returns:
             torch.Tensor: an output tensor processed through network.
+            
+        Author: Konrad
         """
         x2 = self.inception_block(x)
         x2 = self.conv2(x2)

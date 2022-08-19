@@ -21,6 +21,8 @@ def load_images(filenames: List[str], transform: Compose) -> torch.Tensor:
     
     Yields:
         (torch.Tensor): transformed and normalized image
+        
+    Author: Adam
     """
     for filename in filenames:
         img = Image.open(filename)
@@ -38,6 +40,8 @@ def get_paths(dir_path: str) -> List[str]:
     
     Returns:
         (List[str]): a list of image paths from given directory path
+        
+    Author: Adam
     """
     filenames = []
     if dir_path[-1] != "/" and dir_path[-1] != "\\":
@@ -62,6 +66,8 @@ def test(model, dir_path: str) -> np.ndarray:
     
     Returns:
         (np.ndarray): an array of class predictions for given images
+        
+    Author: Adam
     """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     paths = get_paths(dir_path)
@@ -80,9 +86,13 @@ def test(model, dir_path: str) -> np.ndarray:
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse args from input
+    """
+    Parse args from input
+    
     Returns:
         - argparse.Namespace: Namespace with given attributes
+        
+    Author: Adam
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_path", type=str)
@@ -91,6 +101,9 @@ def parse_args() -> argparse.Namespace:
 
 
 if __name__ == "__main__":
+    """
+    Author: Adam
+    """
     parser = parse_args()
     model = torch.load(parser.model_path, map_location=torch.device('cpu'))
     y_hats = test(model, parser.data_path)

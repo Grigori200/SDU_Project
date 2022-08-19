@@ -20,6 +20,8 @@ class SAEBlock(nn.Module):
             channels (int): The number of input channels.
             reduction (int, optional): A coefficient of channels number reduction. Defaults to 16.
             act_fn (Type[nn.Module], optional): An activation function. Defaults to nn.GELU.
+            
+        Author: Konrad
         """
         super(SAEBlock, self).__init__()
         assert channels >= reduction, f'Reduction = {reduction} must be <= than num of channels = {channels}'
@@ -38,6 +40,8 @@ class SAEBlock(nn.Module):
 
         Returns:
             torch.Tensor: an output tensor processed through network.
+            
+        Author: Konrad
         """
         dx = nn.functional.adaptive_avg_pool2d(x, 1)
         dx = self.cnn(dx)
@@ -61,6 +65,8 @@ class InceptionBlock(nn.Module):
             input_channels (int): The number of input channels.
             channels (int): The number of output channels in each of four branches of inception block. Total output number of channels equals to channels * 4.
             act_fn (nn.Module): An activation function.
+            
+        Author: Konrad
         """
         super(InceptionBlock, self).__init__()
         
@@ -106,6 +112,8 @@ class InceptionBlock(nn.Module):
 
         Returns:
             torch.Tensor: an output tensor processed through network.
+            
+        Author: Konrad
         """
         x1 = self.b1(x)
         x2 = self.b2(x)
