@@ -22,7 +22,7 @@ if __name__ == '__main__':
     RUN_NAME = "TestRun"
 
     datamodule_kwargs = {
-        "csv_path": "/home/konradkaranowski/SDU_Project/data_split_to_dirs.csv",
+        "csv_path": "data_split_to_dirs.csv",
         "batch_size": 16,
         "size": 80,
         "normalize": True
