@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1e4dfcd-41e0-4b26-95b3-3b0eb596b842" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/learning/train_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/train_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning/train_test_ensemble.py" beforeDir="false" afterPath="$PROJECT_DIR$/learning/train_test_ensemble.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_ensemble.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_ensemble.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,6 +135,8 @@
       <workItem from="1660836283307" duration="19000" />
       <workItem from="1660836311550" duration="13517000" />
       <workItem from="1660850234604" duration="2419000" />
+      <workItem from="1660862152343" duration="804000" />
+      <workItem from="1660888614200" duration="291000" />
     </task>
     <servers />
   </component>

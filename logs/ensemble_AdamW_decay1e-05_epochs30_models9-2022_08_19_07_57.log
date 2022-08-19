@@ -1,0 +1,5 @@
+2022-08-19 08:09:47,497 - io.py[line:35] - INFO: Saving the model to `./VotingClassifier_ResNet_9_ckpt.pth`
+2022-08-19 08:09:47,538 - voting.py[line:240] - INFO: Epoch: 000 | Validation Acc: 84.848 % | Historical Best: 84.848 %
+2022-08-19 08:21:43,908 - voting.py[line:240] - INFO: Epoch: 001 | Validation Acc: 83.333 % | Historical Best: 84.848 %
+2022-08-19 08:33:37,133 - voting.py[line:240] - INFO: Epoch: 002 | Validation Acc: 83.333 % | Historical Best: 84.848 %
+2022-08-19 08:45:31,961 - voting.py[line:240] - INFO: Epoch: 003 | Validation Acc: 83.333 % | Historical Best: 84.848 %

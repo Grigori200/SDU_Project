@@ -36,7 +36,7 @@ if __name__ == '__main__':
         "dropout_pb":  0.3,            
     }
     trainer_kwargs = {
-        'max_epochs': 20,
+        'max_epochs': 30,
 
         "optimizer": 'AdamW',
 
