@@ -91,7 +91,7 @@ def parse_args() -> argparse.Namespace:
 
 if __name__ == "__main__":
     parser = parse_args()
-    model = torch.load(parser.model_path, map_location=torch.device('cpu'))
+    model = torch.load(parser.model_path, map_location=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
     y_hats = test(model, parser.data_path)
     y_hats = pd.DataFrame(y_hats, columns=["predictions"])
     y_hats.to_csv("predictions.csv")
