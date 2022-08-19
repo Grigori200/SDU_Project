@@ -54,13 +54,3 @@ def load_hyperparams():
     hyperparams["size"] = parser.size
     
     return hyperparams
-
-
-def get_optimizer(model, hyperparams):
-    return AdamP(
-        model.parameters(),
-        lr=hyperparams["learning_rate"],
-        betas=(hyperparams["betas"][0], hyperparams["betas"][1]),
-        weight_decay=hyperparams["weight_decay"],
-        nesterov=hyperparams["nesterov"],
-    )
