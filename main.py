@@ -5,12 +5,10 @@ from torch import nn
 from pytorch_lightning import callbacks
 from pytorch_lightning.loggers import WandbLogger
 from datamodules.datamodule import PneumoniaDataModule
-from datamodules.dataset import PneumoniaData
 
 
 from models import ResNet
 from learning import train_test_model
-from common import load_hyperparams
 
 
 if __name__ == '__main__':
@@ -21,7 +19,7 @@ if __name__ == '__main__':
     RUN_NAME = "TestRun"
 
     datamodule_kwargs = {
-        "csv_path": "/home/konradkaranowski/SDU_Project/data_split_to_dirs.csv",
+        "csv_path": "data_split_to_dirs.csv",
         "batch_size": 32,
     }
 

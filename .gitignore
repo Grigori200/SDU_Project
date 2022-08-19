@@ -1,7 +1,13 @@
-/data
+/data/*
 /notebooks/lightning_logs
 /notebooks/wandb
 /**/__pycache__
 /venv/
-/split_data/
+/split_data/testing/normal/*
+/split_data/testing/pneumonia/*
+/split_data/training/normal/*
+/split_data/training/pneumonia/*
+/split_data/validation/normal/*
+/split_data/validation/pneumonia/*
 /save/*
+data_split_to_dirs.csv
