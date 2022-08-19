@@ -1,7 +1,7 @@
 adamp==0.3.0
 pytorch==1.10.1
 pytorch-lightning==1.6.4
-torchaudio==0.12.1
+torchaudio==0.10.1
 torchensemble==0.1.7
 torchmetrics==0.9.3
-torchvision==0.13.1
+torchvision==0.11.2
